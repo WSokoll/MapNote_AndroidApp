@@ -7,14 +7,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 public class MainActivity extends AppCompatActivity {
-
+//elements from GUI
     TextView tv_latitude, tv_longitude, tv_address, tv_updates, tv_accuracy;
-
     Switch sw_updates, sw_accuracy;
-
-    FusedLocationProviderClient fusedLocationProviderClient;
+//client Google API
+    private FusedLocationProviderClient fusedLocationClient;
+//location request
+    LocationRequest locationRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         tv_accuracy = findViewById(R.id.tv_accuracyStatus);
         sw_updates = findViewById(R.id.sw_updates);
         sw_accuracy = findViewById(R.id.sw_accuracy);
+//zalążek clienta lokalizacji
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
 
     }
