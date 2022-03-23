@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MapNote_AndroidApp</string>
+    <string name="latitude_label">Latitude:</string>
+    <string name="logitude_label">Longitude:</string>
 </resources>
