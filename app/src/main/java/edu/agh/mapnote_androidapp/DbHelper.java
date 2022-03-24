@@ -1,5 +1,6 @@
 package edu.agh.mapnote_androidapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -36,7 +37,24 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //called when database version number changes
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
+    //add note do database
+    public boolean addNote(Note note){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(LATITUDE_COLUMN, note.getLatitude());
+        cv.put(LONGITUDE_COLUMN, note.getLongitude());
+        cv.put(ADDRESS_COLUMN, note.getAddress());
+        cv.put(DATE_COLUMN, note.getDate());
+        cv.put(CONTENT_COLUMN, note.getNoteContent());
+
+        //insert content to database
+        long insert = db.insert(NOTES_TABLE, null, cv);
+
+        //returns true if insert was successful or false if insert was unsuccessful
+        return insert != -1;
     }
 }
