@@ -39,7 +39,7 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
 
-    //add note do database
+    //add note to database
     public boolean addNote(Note note){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -57,4 +57,6 @@ public class DbHelper extends SQLiteOpenHelper {
         //returns true if insert was successful or false if insert was unsuccessful
         return insert != -1;
     }
+
+
 }
