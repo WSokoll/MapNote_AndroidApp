@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             List<Address> address = geocoder.getFromLocation(lat, lon, 1);
-            tv_address.setText(address.get(0).getAddressLine(0));
+            tv_address.setText(address.get(0).getAddressLine(0)); //GeoCoder daje liste
         } catch (Exception e) {
             tv_address.setText("Nie udało się pobrać lokalizacji");
             Toast.makeText(MainActivity.this, "Nie udało się pobrać adresu", Toast.LENGTH_SHORT).show();
