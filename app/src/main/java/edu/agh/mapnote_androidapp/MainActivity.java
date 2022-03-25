@@ -5,17 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.IOException;
+import java.util.List;
 
 import javax.xml.transform.Source;
 
@@ -80,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
             fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    //tutaj wywołanie metody co będzie odświerzać pola
-                    tv_latitude.setText(String.valueOf(location.getLatitude()));
+                    //tutaj wywołanie metody co będzie odświeżać pola
+                    updateValues(location);
                 }
             });
         }else{
@@ -91,6 +98,28 @@ public class MainActivity extends AppCompatActivity {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_FINE_LOCCATION);
             }
+        }
+
+    }
+
+    //odświeżanie pól lokalizacją
+    public void updateValues(Location location){
+        //zmienne bo bedziemy z nich korzystac ten w geocoderze
+        double lat = location.getLatitude();
+        double lon = location.getLongitude();
+        //update
+        tv_latitude.setText(String.valueOf(lat));
+        tv_longitude.setText(String.valueOf(lon));
+
+        //GeoCoder do adresu
+        Geocoder geocoder = new Geocoder(MainActivity.this);
+
+        try {
+            List<Address> address = geocoder.getFromLocation(lat, lon, 1);
+            tv_address.setText(address.get(0).getAddressLine(0));
+        } catch (Exception e) {
+            tv_address.setText("Nie udało się pobrać lokalizacji");
+            Toast.makeText(MainActivity.this, "Nie udało się pobrać adresu", Toast.LENGTH_SHORT).show();
         }
 
     }
