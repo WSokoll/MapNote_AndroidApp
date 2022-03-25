@@ -12,6 +12,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address, tv_updates, tv_accuracy;
     Switch sw_updates, sw_accuracy;
+    Button btn_viewNotes, btn_viewMap, btn_addNote;
 
     //Google's API client
     private FusedLocationProviderClient fusedLocationClient;
@@ -56,6 +59,33 @@ public class MainActivity extends AppCompatActivity {
         locationRequest.setInterval(30000);
         locationRequest.setFastestInterval(5000);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        btn_viewNotes = findViewById(R.id.btn_notes);
+        btn_viewMap = findViewById(R.id.btn_map);
+        btn_addNote = findViewById(R.id.btn_addNote);
+
+        //listenery do buttonow
+
+        btn_viewNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "view notes pressed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_viewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "view map pressed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_addNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "add note pressed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //testowo
         updateGPS();
@@ -108,12 +138,13 @@ public class MainActivity extends AppCompatActivity {
         //zmienne bo bedziemy z nich korzystac ten w geocoderze
         double lat = location.getLatitude();
         double lon = location.getLongitude();
-        //update
-        tv_latitude.setText(String.valueOf(lat));
-        tv_longitude.setText(String.valueOf(lon));
 
         //GeoCoder do adresu
         Geocoder geocoder = new Geocoder(MainActivity.this);
+
+        //update
+        tv_latitude.setText(String.valueOf(lat));
+        tv_longitude.setText(String.valueOf(lon));
 
         try {
             List<Address> address = geocoder.getFromLocation(lat, lon, 1);
