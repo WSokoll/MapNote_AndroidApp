@@ -29,7 +29,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 LATITUDE_COLUMN + " REAL, " +
                 LONGITUDE_COLUMN + " REAL, " +
                 ADDRESS_COLUMN + " TEXT, " +
-                DATE_COLUMN + " TEXT, " +
+                DATE_COLUMN + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                 CONTENT_COLUMN + " TEXT)";
 
         db.execSQL(createStatement);
