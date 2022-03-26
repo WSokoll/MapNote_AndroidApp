@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MapNote_AndroidApp">
         <activity
+            android:name=".ViewNotesActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddNoteActivity"
             android:exported="false"
             android:label="@string/addNoteActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
