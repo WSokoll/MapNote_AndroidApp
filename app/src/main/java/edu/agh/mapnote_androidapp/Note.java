@@ -50,10 +50,6 @@ public class Note {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getNoteContent() {
         return noteContent;
     }
