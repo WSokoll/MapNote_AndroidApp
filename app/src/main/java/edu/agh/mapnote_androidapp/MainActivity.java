@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
                 //pass current location to the new activity
                 intent.putExtra("CURRENT_LOCATION", MainActivity.this.currentLocation);
 
+                //jakos przekazac adres aktualny do activity notatki zeby go wyswietlic jako aktyalny
+                //przy dodawaniu? bo to ze location to git ale nie wiem czy zaprzegac geocodera tam zeby to przekladal
+                //intent.putExtra("CURRENT_ADDRESS", MainActivity.this.tv_address.getText());
                 startActivity(intent);
             }
         });

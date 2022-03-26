@@ -14,6 +14,7 @@
         <activity
             android:name=".AddNoteActivity"
             android:exported="false"
+            android:label="@string/addNoteActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".MainActivity"
