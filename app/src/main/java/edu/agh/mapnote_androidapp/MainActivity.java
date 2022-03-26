@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_FINE_LOCCATION = 10;
     private Location currentLocation;
+    private String currentAddress = "Nie udało się pobrać adresu";
 
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address, tv_updates, tv_accuracy;
@@ -88,12 +89,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
 
-                //pass current location to the new activity
+                //pass current address and current location to the new activity
+                intent.putExtra("CURRENT_ADDRESS", MainActivity.this.currentAddress);
                 intent.putExtra("CURRENT_LOCATION", MainActivity.this.currentLocation);
 
-                //jakos przekazac adres aktualny do activity notatki zeby go wyswietlic jako aktyalny
-                //przy dodawaniu? bo to ze location to git ale nie wiem czy zaprzegac geocodera tam zeby to przekladal
-                //intent.putExtra("CURRENT_ADDRESS", MainActivity.this.tv_address.getText());
                 startActivity(intent);
             }
         });
@@ -142,24 +141,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //odświeżanie pól lokalizacją
+    //update location text views and currentAddress
     public void updateValues(Location location){
-        //zmienne bo bedziemy z nich korzystac ten w geocoderze
+
         double lat = location.getLatitude();
         double lon = location.getLongitude();
 
-        //GeoCoder do adresu
+        //GeoCoder for the address
         Geocoder geocoder = new Geocoder(MainActivity.this);
 
-        //update
+        //update text views
         tv_latitude.setText(String.valueOf(lat));
         tv_longitude.setText(String.valueOf(lon));
 
         try {
             List<Address> address = geocoder.getFromLocation(lat, lon, 1);
-            tv_address.setText(address.get(0).getAddressLine(0)); //GeoCoder daje liste
+            tv_address.setText(address.get(0).getAddressLine(0));
+
+            //update currentAddress
+            this.currentAddress = address.get(0).getAddressLine(0);
+
         } catch (Exception e) {
-            tv_address.setText("Nie udało się pobrać adresu.");
+            tv_address.setText("Nie udało się pobrać adresu");
             Toast.makeText(MainActivity.this, "Nie udało się pobrać adresu.", Toast.LENGTH_SHORT).show();
         }
 
