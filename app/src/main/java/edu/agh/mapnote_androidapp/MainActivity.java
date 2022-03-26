@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //(trzeba będzie jeszcze dodać do listenera przełącznika)
+        //w onCreate też musi zostać
         updateGPS();
 
     }
