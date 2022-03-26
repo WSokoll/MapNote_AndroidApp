@@ -94,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        //testowo (trzeba będzie przenieść do listenera przełącznika)
+        //(trzeba będzie jeszcze dodać do listenera przełącznika)
         updateGPS();
 
     }
