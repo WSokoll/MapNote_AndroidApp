@@ -9,14 +9,7 @@ public class Note {
     private String date;
     private String noteContent;
 
-    public Note(int id, double latitude, double longitude, String address, String date, String noteContent) {
-        this.id = id;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.address = address;
-        this.date = date;
-        this.noteContent = noteContent;
-    }
+    public Note() {}
 
     public int getId() {
         return id;
