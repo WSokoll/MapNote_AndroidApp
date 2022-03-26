@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -31,6 +32,8 @@ import javax.xml.transform.Source;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_FINE_LOCCATION = 10;
+    private Location currentLocation;
+
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address, tv_updates, tv_accuracy;
     Switch sw_updates, sw_accuracy;
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         btn_viewMap = findViewById(R.id.btn_map);
         btn_addNote = findViewById(R.id.btn_addNote);
 
-        //listenery do buttonow
+        //button listeners
 
         btn_viewNotes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +86,16 @@ public class MainActivity extends AppCompatActivity {
         btn_addNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "add note pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
+
+                //pass current location to the new activity
+                intent.putExtra("CURRENT_LOCATION", MainActivity.this.currentLocation);
+
+                startActivity(intent);
             }
         });
 
-        //testowo
+        //testowo (trzeba będzie przenieść do listenera przełącznika)
         updateGPS();
 
     }
@@ -100,9 +108,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 updateGPS();
             } else {
-                //jakaś wiadomość, że potrzeba pozwolenia...
                 Toast.makeText(MainActivity.this, "Aplikacja potrzebuje uprawnień do poprawnego działania.", Toast.LENGTH_SHORT).show();
-                System.out.println("brak pozwolenia");
                 finish();
             }
         }
@@ -118,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
             fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    //tutaj wywołanie metody co będzie odświeżać pola
                     updateValues(location);
+                    MainActivity.this.currentLocation = location;
                 }
             });
         }else{
