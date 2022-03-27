@@ -2,10 +2,14 @@ package edu.agh.mapnote_androidapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
 
@@ -18,7 +22,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CONTENT_COLUMN = "NoteContent";
 
     public DbHelper(@Nullable Context context) {
-        super(context, "mapNote.db", null, 1);
+        super(context, "mapNote.db", null, 2);
     }
 
     //create new database (called the first time database is accessed)
@@ -37,7 +41,16 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //called when database version number changes
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {}
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        //not really right way to do it, because we will loose all the data
+
+        //drop the table
+        String statement = "DROP TABLE IF EXISTS " + NOTES_TABLE;
+        db.execSQL(statement);
+
+        //create new table
+        onCreate(db);
+    }
 
     //add note to database
     public boolean addNote(Note note){
@@ -48,15 +61,48 @@ public class DbHelper extends SQLiteOpenHelper {
         cv.put(LATITUDE_COLUMN, note.getLatitude());
         cv.put(LONGITUDE_COLUMN, note.getLongitude());
         cv.put(ADDRESS_COLUMN, note.getAddress());
-        cv.put(DATE_COLUMN, note.getDate());
         cv.put(CONTENT_COLUMN, note.getNoteContent());
 
         //insert content to database
         long insert = db.insert(NOTES_TABLE, null, cv);
 
+        //close db
+        db.close();
+
         //returns true if insert was successful or false if insert was unsuccessful
         return insert != -1;
     }
 
+    public List<Note> getAllNotes(){
+        List<Note> resultList = new ArrayList<>();
+
+        //get data from the database
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + NOTES_TABLE;
+
+        //result set
+        Cursor cursor = db.rawQuery(query, null);
+
+        //check if there are any results
+        if(cursor.moveToFirst()){
+            //create new Note object for every row and put it into resultList
+            do{
+                Note note = new Note();
+                note.setId(cursor.getInt(0));
+                note.setLatitude(cursor.getInt(1));
+                note.setLongitude(cursor.getInt(2));
+                note.setAddress(cursor.getString(3));
+                note.setDate(cursor.getString(4));
+                note.setNoteContent(cursor.getString(5));
+
+                resultList.add(note);
+            }while(cursor.moveToNext());
+
+        }
+        //close the cursor and the db
+        cursor.close();
+        db.close();
+        return resultList;
+    }
 
 }
