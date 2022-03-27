@@ -111,28 +111,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sw_updates" />
 
-    <TextView
-        android:id="@+id/tv_localisationStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toEndOf="@+id/sw_updates"
-        app:layout_constraintTop_toBottomOf="@+id/tv_address" />
-
-    <TextView
-        android:id="@+id/tv_accuracyStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="-"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toEndOf="@+id/sw_accuracy"
-        app:layout_constraintTop_toBottomOf="@+id/tv_localisationStatus" />
-
     <Button
         android:id="@+id/btn_map"
         android:layout_width="0dp"

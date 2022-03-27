@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private String currentAddress = "Nie udało się pobrać adresu";
 
     //elements from GUI
-    TextView tv_latitude, tv_longitude, tv_address, tv_updates, tv_accuracy;
+    TextView tv_latitude, tv_longitude, tv_address;
     Switch sw_updates, sw_accuracy;
     Button btn_viewNotes, btn_viewMap, btn_addNote;
 
@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         tv_latitude = findViewById(R.id.tv_latitude);
         tv_longitude = findViewById(R.id.tv_longitude);
         tv_address = findViewById(R.id.tv_address);
-        tv_updates = findViewById(R.id.tv_localisationStatus);
-        tv_accuracy = findViewById(R.id.tv_accuracyStatus);
         sw_updates = findViewById(R.id.sw_updates);
         sw_accuracy = findViewById(R.id.sw_accuracy);
 
@@ -100,6 +98,23 @@ public class MainActivity extends AppCompatActivity {
         });
         //(trzeba będzie jeszcze dodać do listenera przełącznika)
         //w onCreate też musi zostać
+        //listener of Updates switch
+        sw_updates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //start updating in intervals
+            }
+        });
+
+        //listener of Accuracy switch
+        sw_accuracy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //get more accurate location <-> stay with less accurate
+            }
+        });
+
+
         updateGPS();
 
     }
