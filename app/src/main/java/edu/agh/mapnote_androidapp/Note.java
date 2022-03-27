@@ -15,6 +15,10 @@ public class Note {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public double getLatitude() {
         return latitude;
     }
@@ -43,6 +47,10 @@ public class Note {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getNoteContent() {
         return noteContent;
     }
@@ -53,13 +61,6 @@ public class Note {
 
     @Override
     public String toString() {
-        return "Note{" +
-                "id=" + id +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", address='" + address + '\'' +
-                ", date='" + date + '\'' +
-                ", noteContent='" + noteContent + '\'' +
-                '}';
+        return id + ". " + address + "\n" + noteContent;
     }
 }
