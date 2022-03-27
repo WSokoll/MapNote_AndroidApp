@@ -13,7 +13,9 @@
         android:theme="@style/Theme.MapNote_AndroidApp">
         <activity
             android:name=".ViewNotesActivity"
-            android:exported="false" />
+            android:label="@string/viewNotesActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".AddNoteActivity"
             android:exported="false"

@@ -3,4 +3,5 @@
     <string name="latitude_label">Latitude:</string>
     <string name="logitude_label">Longitude:</string>
     <string name="addNoteActivity">Dodawanie notatki</string>
+    <string name="viewNotesActivity">Lista notatek</string>
 </resources>

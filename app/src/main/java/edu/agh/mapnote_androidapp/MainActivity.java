@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "view notes pressed", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ViewNotesActivity.class);
+                startActivity(intent);
             }
         });
 
