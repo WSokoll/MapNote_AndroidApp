@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".EditDeleteNoteActivity">
 
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="196dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
