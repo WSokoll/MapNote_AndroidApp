@@ -59,6 +59,8 @@ public class Note {
         this.noteContent = noteContent;
     }
 
+
+    //needs to start with id followed by dot!!!
     @Override
     public String toString() {
         return id + ". " + address + "\n" + noteContent;
