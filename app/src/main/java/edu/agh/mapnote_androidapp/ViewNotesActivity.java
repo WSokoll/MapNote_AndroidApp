@@ -2,7 +2,9 @@ package edu.agh.mapnote_androidapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -37,5 +39,31 @@ public class ViewNotesActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                 values);
         lv_Notes.setAdapter(adapter);
+
+        //open edit/delete activity after clicking on specific note
+        lv_Notes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(view.getContext(), EditDeleteNoteActivity.class);
+
+                //pass note id
+                intent.putExtra("NOTE_ID", getNoteId(values[position]));
+
+                startActivity(intent);
+            }
+        });
+    }
+
+    //separate and convert note id from note's toString
+    private int getNoteId(String noteString){
+        String id = "";
+
+        int i = 0;
+        while (noteString.charAt(i) != '.'){
+            id += noteString.charAt(i);
+            i++;
+        }
+
+        return Integer.parseInt(id);
     }
 }
