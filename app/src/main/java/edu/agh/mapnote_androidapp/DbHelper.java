@@ -126,4 +126,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
         return note;
     }
+
+    public boolean deleteNoteById(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //delete row from database where id column match given id
+        long delete = db.delete(NOTES_TABLE, ID_COLUMN + "=?", new String[]{String.valueOf(id)});
+
+        //close db
+        db.close();
+
+        //returns true if delete was successful or false if delete was unsuccessful
+        return delete != -1;
+    }
 }
