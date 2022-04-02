@@ -7,7 +7,7 @@
     tools:context=".EditDeleteNoteActivity">
 
     <TextView
-        android:id="@+id/tv_content"
+        android:id="@+id/tv_editNoteContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/tv_deleteNote"
+        android:id="@+id/btn_deleteNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -66,14 +66,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/tv_editNote"
+        android:id="@+id/btn_editNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="Edytuj notatkę"
-        app:layout_constraintBottom_toTopOf="@+id/tv_deleteNote"
+        app:layout_constraintBottom_toTopOf="@+id/btn_deleteNote"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
