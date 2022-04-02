@@ -105,4 +105,25 @@ public class DbHelper extends SQLiteOpenHelper {
         return resultList;
     }
 
+    public Note getNoteById(int id) {
+        Note note = new Note();
+
+        //get data from the database
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + NOTES_TABLE + " WHERE " + ID_COLUMN + " = " + id;
+
+        //result set
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            note.setId(cursor.getInt(0));
+            note.setLatitude(cursor.getInt(1));
+            note.setLongitude(cursor.getInt(2));
+            note.setAddress(cursor.getString(3));
+            note.setDate(cursor.getString(4));
+            note.setNoteContent(cursor.getString(5));
+        }
+
+        return note;
+    }
 }
