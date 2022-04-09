@@ -16,6 +16,8 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.simplefastpoint.LabelledGeoPoint;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,13 @@ public class MapActivity extends AppCompatActivity{
         IMapController mapController = map.getController();
         mapController.setZoom(20.5);
         GeoPoint startPoint = new GeoPoint(50.06738875352999, 19.916020749346657);
+        GeoPoint labelPoint = new LabelledGeoPoint(50.06738875352999,19.916020749346657, "Teleinfa");
         mapController.setCenter(startPoint);
+        Marker startMarker = new Marker(map);
+        startMarker.setPosition(labelPoint);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        //startMarker.setTextIcon("B9");
+        map.getOverlays().add(startMarker);
 
         requestPermissionsIfNecessary(new String[] {
                 // if you need to show the current location, uncomment the line below
