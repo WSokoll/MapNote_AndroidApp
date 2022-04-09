@@ -173,10 +173,11 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             List<Address> address = geocoder.getFromLocation(lat, lon, 1);
+            this.currentAddress = address.get(0).getAddressLine(0);
             tv_address.setText(address.get(0).getAddressLine(0));
 
             //update currentAddress
-            this.currentAddress = address.get(0).getAddressLine(0);
+
 
         } catch (Exception e) {
             tv_address.setText("Nie udało się pobrać adresu");
