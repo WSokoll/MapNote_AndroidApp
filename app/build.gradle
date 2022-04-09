@@ -38,4 +38,7 @@ dependencies {
 
     //location services
     implementation 'com.google.android.gms:play-services-location:19.0.1'
+
+    //osmdroid
+    implementation 'org.osmdroid:osmdroid-android:6.1.10'
 }
