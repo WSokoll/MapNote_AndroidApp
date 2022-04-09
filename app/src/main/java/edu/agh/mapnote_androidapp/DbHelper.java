@@ -73,6 +73,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
+    //get list of all notes
     public List<Note> getAllNotes(){
         List<Note> resultList = new ArrayList<>();
 
@@ -105,6 +106,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return resultList;
     }
 
+    //get note with specified id
     public Note getNoteById(int id) {
         Note note = new Note();
 
@@ -127,6 +129,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return note;
     }
 
+    //delete note with specified id
     public boolean deleteNoteById(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -138,5 +141,22 @@ public class DbHelper extends SQLiteOpenHelper {
 
         //returns true if delete was successful or false if delete was unsuccessful
         return delete != -1;
+    }
+
+    //edit specific note's content
+    public boolean editNote(Note editedNote){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(CONTENT_COLUMN, editedNote.getNoteContent());
+
+        //update content
+        long update = db.update(NOTES_TABLE, cv, ID_COLUMN + " = ?", new String[]{String.valueOf(editedNote.getId())});
+
+        //close db
+        db.close();
+
+        //returns true if update was successful or false if update was unsuccessful
+        return update != -1;
     }
 }
