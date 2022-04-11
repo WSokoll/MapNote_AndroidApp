@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,10 +21,14 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.simplefastpoint.LabelledGeoPoint;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapActivity extends AppCompatActivity{
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
+    private DbHelper dbHelper;
+    private List<Note> noteList;
+    private List<GeoPoint> pins;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,16 +54,30 @@ public class MapActivity extends AppCompatActivity{
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
         map.setMultiTouchControls(true);
 
+        //getting Notes from db
+        dbHelper = new DbHelper(this);
+        noteList = dbHelper.getAllNotes();
+
+
         IMapController mapController = map.getController();
-        mapController.setZoom(20.5);
-        GeoPoint startPoint = new GeoPoint(50.06738875352999, 19.916020749346657);
-        GeoPoint labelPoint = new LabelledGeoPoint(50.06738875352999,19.916020749346657, "Teleinfa");
-        mapController.setCenter(startPoint);
-        Marker startMarker = new Marker(map);
-        startMarker.setPosition(labelPoint);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        mapController.setZoom(10d);
+        mapController.setCenter(new GeoPoint(50d,20d));
+        pins = makePins(noteList);
+        for (GeoPoint point : pins) {
+            Toast.makeText(this, point.toString(), Toast.LENGTH_SHORT);
+            Marker marker = new Marker(map);
+            marker.setPosition(point);
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            map.getOverlays().add(marker);
+        }
+        //GeoPoint startPoint = new GeoPoint(50.06738875352999, 19.916020749346657);
+        //GeoPoint labelPoint = new LabelledGeoPoint(50.06738875352999,19.916020749346657, "Teleinfa");
+        //mapController.setCenter(startPoint);
+        //Marker startMarker = new Marker(map);
+        //startMarker.setPosition(labelPoint);
+        //startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         //startMarker.setTextIcon("B9");
-        map.getOverlays().add(startMarker);
+        //map.getOverlays().add(startMarker);
 
         requestPermissionsIfNecessary(new String[] {
                 // if you need to show the current location, uncomment the line below
@@ -117,5 +136,15 @@ public class MapActivity extends AppCompatActivity{
                     permissionsToRequest.toArray(new String[0]),
                     REQUEST_PERMISSIONS_REQUEST_CODE);
         }
+    }
+
+    private List<GeoPoint> makePins(List<Note> notes){
+        int notesSize = notes.size();
+        List<GeoPoint> points = new ArrayList<GeoPoint>();
+        for (Note note : notes) {
+            GeoPoint point = new GeoPoint(note.getLatitude(), note.getLongitude());
+            points.add(point);
+        }
+        return points;
     }
 }
