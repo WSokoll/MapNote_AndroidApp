@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Dodawanie notatki"
+        android:text="@string/addNoteActivityTitle"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Aktualny adres:"
+        android:text="@string/addNoteActivityAddressLabel"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Wpisz treść notatki:"
+        android:text="@string/addNoteActivityTypeNoteLabel"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
@@ -66,7 +66,7 @@
             android:id="@+id/tied_noteTextInput"
             android:layout_width="match_parent"
             android:layout_height="177dp"
-            android:hint="Wprowadź treść notatki" />
+            android:hint="@string/addNoteActivityInputHint" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -76,7 +76,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Dodaj notatkę"
+        android:text="@string/addNoteActivityAddNoteButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
