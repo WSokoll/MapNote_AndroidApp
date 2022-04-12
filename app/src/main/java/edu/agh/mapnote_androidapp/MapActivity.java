@@ -28,7 +28,6 @@ public class MapActivity extends AppCompatActivity{
     private MapView map = null;
     private DbHelper dbHelper;
     private List<Note> noteList;
-    private List<GeoPoint> pins;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +61,12 @@ public class MapActivity extends AppCompatActivity{
         IMapController mapController = map.getController();
         mapController.setZoom(10d);
         mapController.setCenter(new GeoPoint(50d,20d));
-        pins = makePins(noteList);
-        for (GeoPoint point : pins) {
+
+        //setting pins on map for each note
+        for (Note note : noteList) {
+            //creating Geopoint
+            GeoPoint point = new GeoPoint(note.getLatitude(), note.getLongitude());
+
             Toast.makeText(this, point.toString(), Toast.LENGTH_SHORT);
             Marker marker = new Marker(map);
             marker.setPosition(point);
@@ -109,10 +112,14 @@ public class MapActivity extends AppCompatActivity{
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         ArrayList<String> permissionsToRequest = new ArrayList<>();
+
         for (int i = 0; i < grantResults.length; i++) {
             permissionsToRequest.add(permissions[i]);
         }
+
         if (permissionsToRequest.size() > 0) {
             ActivityCompat.requestPermissions(
                     this,
@@ -138,13 +145,13 @@ public class MapActivity extends AppCompatActivity{
         }
     }
 
-    private List<GeoPoint> makePins(List<Note> notes){
-        int notesSize = notes.size();
-        List<GeoPoint> points = new ArrayList<GeoPoint>();
-        for (Note note : notes) {
-            GeoPoint point = new GeoPoint(note.getLatitude(), note.getLongitude());
-            points.add(point);
-        }
-        return points;
-    }
+    //probably to be deleted, because we need note content for every pin anyway
+//    private List<GeoPoint> makePins(List<Note> notes){
+//        List<GeoPoint> points = new ArrayList<>();
+//        for (Note note : notes) {
+//            GeoPoint point = new GeoPoint(note.getLatitude(), note.getLongitude());
+//            points.add(point);
+//        }
+//        return points;
+//    }
 }
