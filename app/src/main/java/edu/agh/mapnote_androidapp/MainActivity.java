@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_FINE_LOCCATION = 10;
     private Location currentLocation;
-    private String currentAddress = "Nie udało się pobrać adresu";
+    private String currentAddress = String.valueOf(R.string.mainActivityFailToRetrieveAddress);
 
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address;
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         btn_viewNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "view notes pressed", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ViewNotesActivity.class);
                 startActivity(intent);
             }
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         btn_viewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "view map pressed", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
                 startActivity(intent);
             }
@@ -98,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //(trzeba będzie jeszcze dodać do listenera przełącznika)
-        //w onCreate też musi zostać
+
         //listener of Updates switch
         sw_updates.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 updateGPS();
             } else {
-                Toast.makeText(MainActivity.this, "Aplikacja potrzebuje uprawnień do poprawnego działania.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.toastPermissionNeeded, Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -182,8 +179,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         } catch (Exception e) {
-            tv_address.setText("Nie udało się pobrać adresu");
-            Toast.makeText(MainActivity.this, "Nie udało się pobrać adresu.", Toast.LENGTH_SHORT).show();
+            tv_address.setText(R.string.mainActivityFailToRetrieveAddress);
+            Toast.makeText(MainActivity.this, R.string.mainActivityFailToRetrieveAddress, Toast.LENGTH_SHORT).show();
         }
 
     }

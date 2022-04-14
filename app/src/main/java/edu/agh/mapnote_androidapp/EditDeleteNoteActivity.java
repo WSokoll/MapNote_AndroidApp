@@ -48,7 +48,7 @@ public class EditDeleteNoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(dbHelper.deleteNoteById(noteId)) {
-                    Toast.makeText(EditDeleteNoteActivity.this, "Notatka została usunięta", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditDeleteNoteActivity.this, R.string.toastNoteDeleted, Toast.LENGTH_SHORT).show();
 
                     //Tu może coś wymyślić, żeby inaczej wrócić do tego widoku bo teraz wraca, ale jak sie kliknie
                     //strzałke w tył to wraca do okna usuwania i edytowania już usuniętej notatki
@@ -56,7 +56,7 @@ public class EditDeleteNoteActivity extends AppCompatActivity {
                     Intent intent = new Intent(EditDeleteNoteActivity.this, ViewNotesActivity.class);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(EditDeleteNoteActivity.this, "Wystąpił błąd podczas usuwania notatki", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditDeleteNoteActivity.this, R.string.toastErrorWhileDeleting, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -67,17 +67,17 @@ public class EditDeleteNoteActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //check if content isn't blank
                 if(tn_EditDeleteNoteContent.getText().length() == 0) {
-                    Toast.makeText(EditDeleteNoteActivity.this, "Wprowadź treść notatki", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditDeleteNoteActivity.this, R.string.toastEnterNoteContent, Toast.LENGTH_SHORT).show();
                 }else{
                     note.setNoteContent(String.valueOf(tn_EditDeleteNoteContent.getText()));
 
                     //try to update
                     if(dbHelper.editNote(note)){
-                        Toast.makeText(EditDeleteNoteActivity.this, "Treść została pomyślnie zmieniona", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditDeleteNoteActivity.this, R.string.toastChangedContentSaved, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(EditDeleteNoteActivity.this, ViewNotesActivity.class);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(EditDeleteNoteActivity.this, "Proces zapisywania edycji nie powiódł się", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditDeleteNoteActivity.this, R.string.toastErrorWhileSavingChangedContent, Toast.LENGTH_SHORT).show();
                     }
 
                 }

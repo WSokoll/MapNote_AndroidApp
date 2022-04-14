@@ -44,7 +44,7 @@ public class AddNoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(tied_noteTextInput.getText().length() == 0){
-                    Toast.makeText(AddNoteActivity.this, "Wprowadź treść notatki", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNoteActivity.this, R.string.toastEnterNoteContent, Toast.LENGTH_SHORT).show();
                 }else {
 
                     //create Note object and fill it with data
@@ -57,11 +57,11 @@ public class AddNoteActivity extends AppCompatActivity {
                     //if the note is not empty -> try to insert it to the database
                     if (dbHelper.addNote(note)) {
                         //successful insert
-                        Toast.makeText(AddNoteActivity.this, "Notatka została dodana pomyślnie", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNoteActivity.this, R.string.toastNoteAddedSuccessfully, Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
                         //insert unsuccessful
-                        Toast.makeText(AddNoteActivity.this, "Podczas zapisywania wystąpił błąd", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNoteActivity.this, R.string.toastErrorWhileSavingNote, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

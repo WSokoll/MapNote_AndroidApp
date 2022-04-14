@@ -3,20 +3,33 @@
     <string name="addNoteActivity">Dodawanie notatki</string>
     <string name="viewNotesActivity">Lista notatek</string>
 
-    <!--  activity_add_note GUI Strings  -->
+    <!--  activity_add_note.xml GUI Strings  -->
     <string name="addNoteActivityTitle">Dodawanie notatki</string>
     <string name="addNoteActivityAddressLabel">Aktualny adres:</string>
     <string name="addNoteActivityTypeNoteLabel">Wpisz treść notatki</string>
     <string name="addNoteActivityInputHint">Wprowadź treść notatki</string>
     <string name="addNoteActivityAddNoteButton">DODAJ NOTATKĘ</string>
 
-    <!--  activity_edit_delete_note GUI Strings  -->
+    <!--  AddNoteActivity.java Strings  -->
+    <string name="toastNoteAddedSuccessfully">Notatka została dodana pomyślnie</string>
+    <string name="toastErrorWhileSavingNote">Podczas zapisywania wystąpił błąd</string>
+
+    <!--  AddNoteActivity.java and EditDeleteNoteActivity.java shared Strings  -->
+    <string name="toastEnterNoteContent">Wprowadź treść notatki</string>
+
+    <!--  activity_edit_delete_note.xml GUI Strings  -->
     <string name="editDeleteNoteActivityAddressLabel">Adres:</string>
     <string name="editDeleteNoteActivityNoteContentLabel">Treść notatki</string>
     <string name="editDeleteNoteActivityEditNoteButton">EDYTUJ NOTATKĘ</string>
     <string name="editDeleteNoteActivityDeleteNoteButton">USUŃ NOTATKĘ</string>
 
-    <!--  activity_main GUI Strings  -->
+    <!--  EditDeleteNoteActivity.java Strings  -->
+    <string name="toastNoteDeleted">Notatka została usunięta</string>
+    <string name="toastErrorWhileDeleting">Wystąpił błąd podczas usuwania notatki</string>
+    <string name="toastChangedContentSaved">Treść została pomyślnie zmieniona</string>
+    <string name="toastErrorWhileSavingChangedContent">Proces zapisywania edycji nie powiódł się</string>
+
+    <!--  activity_main.xml GUI Strings  -->
     <string name="mainActivityTitle">Map Note</string>
     <string name="mainActivityLatitudeLabel">Szerokość:</string>
     <string name="mainActivityLongitudeLabel">Długość:</string>
@@ -26,5 +39,9 @@
     <string name="mainActivitySeeNotesButton">PRZEGLĄDAJ NOTATKI</string>
     <string name="mainActivityMapViewButton">WIDOK MAPY</string>
     <string name="mainActivityAddNoteButton">DODAJ NOTATKĘ</string>
+
+    <!--  MainActivity.java Strings  -->
+    <string name="mainActivityFailToRetrieveAddress">Nie udało się pobrać adresu</string>
+    <string name="toastPermissionNeeded">Aplikacja potrzebuje uprawnień do poprawnego działania.</string>
 
 </resources>
