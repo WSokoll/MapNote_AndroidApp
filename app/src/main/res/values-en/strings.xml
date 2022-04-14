@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  English translation  -->
+
+    <string name="app_name">Map Note</string>
+    <string name="addNoteActivity">Add Note</string>
+    <string name="viewNotesActivity">Note List</string>
+    <string name="addNoteActivityTitle">Add Note</string>
+    <string name="addNoteActivityAddressLabel">Current address:</string>
+    <string name="addNoteActivityTypeNoteLabel">Enter your note</string>
+    <string name="addNoteActivityInputHint">Enter your note here</string>
+    <string name="addNoteActivityAddNoteButton">ADD NOTE</string>
+    <string name="toastNoteAddedSuccessfully">Note added succesfully</string>
+    <string name="toastErrorWhileSavingNote">An Error occurred while saving</string>
+    <string name="toastEnterNoteContent">Enter note content</string>
+    <string name="editDeleteNoteActivityAddressLabel">Address:</string>
+    <string name="editDeleteNoteActivityNoteContentLabel">Note content</string>
+    <string name="editDeleteNoteActivityEditNoteButton">EDIT NOTE</string>
+    <string name="editDeleteNoteActivityDeleteNoteButton">DELETE NOTE</string>
+    <string name="toastNoteDeleted">Note has been deleted</string>
+    <string name="toastErrorWhileDeleting">An Error occured while deleting the note</string>
+    <string name="toastChangedContentSaved">Note content has been updated</string>
+    <string name="toastErrorWhileSavingChangedContent">An error occured while saving your changes</string>
+    <string name="mainActivityTitle">Map Note</string>
+    <string name="mainActivityLatitudeLabel">Latitude:</string>
+    <string name="mainActivityLongitudeLabel">Longitude:</string>
+    <string name="mainActivityAddressLabel">Current address:</string>
+    <string name="mainActivityRefreshSwitch">Refresh the location</string>
+    <string name="mainActivityHighAccuracySwitch">High accuracy</string>
+    <string name="mainActivitySeeNotesButton">VIEW NOTES</string>
+    <string name="mainActivityMapViewButton">MAP VIEW</string>
+    <string name="mainActivityAddNoteButton">ADD NOTE</string>
+    <string name="mainActivityFailToRetrieveAddress">Faile to retrieve address</string>
+    <string name="toastPermissionNeeded">"App need permission to function properly "</string>
+</resources>
