@@ -119,8 +119,8 @@ public class DbHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             note.setId(cursor.getInt(0));
-            note.setLatitude(cursor.getInt(1));
-            note.setLongitude(cursor.getInt(2));
+            note.setLatitude(cursor.getDouble(1));
+            note.setLongitude(cursor.getDouble(2));
             note.setAddress(cursor.getString(3));
             note.setDate(cursor.getString(4));
             note.setNoteContent(cursor.getString(5));
