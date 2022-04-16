@@ -3,6 +3,7 @@ package edu.agh.mapnote_androidapp;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
@@ -18,6 +19,8 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import org.osmdroid.views.overlay.simplefastpoint.LabelledGeoPoint;
 
 import java.util.ArrayList;
@@ -28,22 +31,16 @@ public class MapActivity extends AppCompatActivity{
     private MapView map = null;
     private DbHelper dbHelper;
     private List<Note> noteList;
+    private MyLocationNewOverlay mLocationOverlay;
+    private Double latitude, longitude;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //handle permissions first, before map is created. not depicted here
-
-        //load/initialize the osmdroid configuration, this can be done
+        //load the osmdroid configuration, this can be done
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        //setting this before the layout is inflated is a good idea
-        //it 'should' ensure that the map has a writable location for the map cache, even without permissions
-        //if no tiles are displayed, you can try overriding the cache path using Configuration.getInstance().setCachePath
-        //see also StorageUtils
-        //note, the load method also sets the HTTP User Agent to your application's package name, abusing osm's
-        //tile servers will get you banned based on this string
 
         //inflate and create the map
         setContentView(R.layout.activity_map);
@@ -53,14 +50,24 @@ public class MapActivity extends AppCompatActivity{
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
         map.setMultiTouchControls(true);
 
+        //get current latitude and longitude from MainActivity
+        Bundle extras = getIntent().getExtras();
+        this.latitude = (Double) extras.get("CURRENT_LATITUDE");
+        this.longitude = (Double) extras.get("CURRENT_LONGITUDE");
+
         //getting Notes from db
         dbHelper = new DbHelper(this);
         noteList = dbHelper.getAllNotes();
 
+        //setting icon showing current location
+        this.mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), map);
+        this.mLocationOverlay.enableMyLocation();
+        map.getOverlays().add(this.mLocationOverlay);
 
         IMapController mapController = map.getController();
         mapController.setZoom(10d);
-        mapController.setCenter(new GeoPoint(50d,20d));
+        mapController.setCenter(new GeoPoint(latitude, longitude));
+
 
         //setting pins on map for each note
         for (Note note : noteList) {
@@ -69,9 +76,12 @@ public class MapActivity extends AppCompatActivity{
 
             Toast.makeText(this, point.toString(), Toast.LENGTH_SHORT);
             Marker marker = new Marker(map);
+            marker.setTitle(note.getNoteContent());
+            marker.setIcon(null);
             marker.setPosition(point);
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             map.getOverlays().add(marker);
+
         }
         //GeoPoint startPoint = new GeoPoint(50.06738875352999, 19.916020749346657);
         //GeoPoint labelPoint = new LabelledGeoPoint(50.06738875352999,19.916020749346657, "Teleinfa");
@@ -93,21 +103,13 @@ public class MapActivity extends AppCompatActivity{
     @Override
     public void onResume() {
         super.onResume();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
-        map.onResume(); //needed for compass, my location overlays, v6.0.0 and up
+        map.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //this will refresh the osmdroid configuration on resuming.
-        //if you make changes to the configuration, use
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //Configuration.getInstance().save(this, prefs);
-        map.onPause();  //needed for compass, my location overlays, v6.0.0 and up
+        map.onPause();
     }
 
     @Override
