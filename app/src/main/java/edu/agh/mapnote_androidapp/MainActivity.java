@@ -80,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
+
+                //pass current latitude and longitude to map activity
+                intent.putExtra("CURRENT_LATITUDE", MainActivity.this.currentLocation.getLatitude());
+                intent.putExtra("CURRENT_LONGITUDE", MainActivity.this.currentLocation.getLongitude());
+
                 startActivity(intent);
             }
         });
