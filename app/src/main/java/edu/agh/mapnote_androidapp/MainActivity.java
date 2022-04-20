@@ -57,10 +57,13 @@ public class MainActivity extends AppCompatActivity {
         sw_updates = findViewById(R.id.sw_updates);
         sw_accuracy = findViewById(R.id.sw_accuracy);
 
-        locationRequest = new LocationRequest();
-        locationRequest.setInterval(30000);
-        locationRequest.setFastestInterval(5000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        locationRequest = LocationRequest.create()
+                .setInterval(30000)
+                .setFastestInterval(5000)
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        // locationRequest = new LocationRequest(); DEPRECATED
 
         btn_viewNotes = findViewById(R.id.btn_notes);
         btn_viewMap = findViewById(R.id.btn_map);
