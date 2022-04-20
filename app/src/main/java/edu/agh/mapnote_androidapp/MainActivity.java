@@ -13,6 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -20,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_FINE_LOCCATION = 10;
     private Location currentLocation;
     private String currentAddress = String.valueOf(R.string.mainActivityFailToRetrieveAddress);
+    boolean requestingLocationUpdates; //idk boolean for the switches start/stop?
 
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address;
@@ -44,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
 
     //location request
-    private LocationRequest locationRequest;
+    LocationRequest locationRequest;
+
+    //location callback
+    LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +66,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         locationRequest = LocationRequest.create()
-                .setInterval(30000)
+                .setInterval(15000)
                 .setFastestInterval(5000)
                 .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         // locationRequest = new LocationRequest(); DEPRECATED
+
+        //locationCallback triggered by intervals(?)
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                updateValues(locationResult.getLastLocation()); //updates the values without updateGPS doing same thing(?)
+            }
+        };
+
 
         btn_viewNotes = findViewById(R.id.btn_notes);
         btn_viewMap = findViewById(R.id.btn_map);
@@ -106,9 +123,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //listener of Updates switch
+
         sw_updates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sw_updates.isChecked()){
+                //    startLocationUpdates();
+                //    requestingLocationUpdates = true;
+                }
                 //start updating in intervals
             }
         });
@@ -117,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
         sw_accuracy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sw_accuracy.isChecked()){
+                //    stopLocationUpdates();
+                }
                 //get more accurate location <-> stay with less accurate
             }
         });
@@ -125,6 +150,45 @@ public class MainActivity extends AppCompatActivity {
         updateGPS();
 
     }
+
+    //FUNNY
+    //https://developer.android.com/training/location/request-updates
+    //docs^
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopLocationUpdates();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (requestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallback);
+    }
+    //if you remove the checkSelf... and try to use requestLocationUpdates it might cause and Exception if no permission
+    private void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper()); //Looper can't be null :D
+        updateGPS();
+    }
+
+    //END OF FUNNY
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
