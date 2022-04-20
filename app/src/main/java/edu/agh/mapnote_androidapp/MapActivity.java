@@ -93,8 +93,6 @@ public class MapActivity extends AppCompatActivity{
         //map.getOverlays().add(startMarker);
 
         requestPermissionsIfNecessary(new String[] {
-                // if you need to show the current location, uncomment the line below
-                // Manifest.permission.ACCESS_FINE_LOCATION,
                 // WRITE_EXTERNAL_STORAGE is required in order to show the map
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         });
@@ -147,13 +145,4 @@ public class MapActivity extends AppCompatActivity{
         }
     }
 
-    //probably to be deleted, because we need note content for every pin anyway
-//    private List<GeoPoint> makePins(List<Note> notes){
-//        List<GeoPoint> points = new ArrayList<>();
-//        for (Note note : notes) {
-//            GeoPoint point = new GeoPoint(note.getLatitude(), note.getLongitude());
-//            points.add(point);
-//        }
-//        return points;
-//    }
 }
