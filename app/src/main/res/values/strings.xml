@@ -43,5 +43,6 @@
     <!--  MainActivity.java Strings  -->
     <string name="mainActivityFailToRetrieveAddress">Nie udało się pobrać adresu</string>
     <string name="toastPermissionNeeded">Aplikacja potrzebuje uprawnień do poprawnego działania.</string>
+    <string name="toastUpdatedLocation">Zaktualizowano lokalizację.</string>
 
 </resources>

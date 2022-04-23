@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_FINE_LOCCATION = 10;
     private Location currentLocation;
     private String currentAddress = String.valueOf(R.string.mainActivityFailToRetrieveAddress);
-    boolean requestingLocationUpdates; //idk boolean for the switches start/stop?
+    boolean requestingLocationUpdates;
 
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address;
@@ -69,15 +69,14 @@ public class MainActivity extends AppCompatActivity {
                 .setFastestInterval(5000)
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY); //balanced power
 
-        // locationRequest = new LocationRequest(); DEPRECATED
 
-        //locationCallback triggered by intervals(?)
+        //locationCallback triggered by intervals
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 updateValues(locationResult.getLastLocation()); //updates the values without updateGPS doing same thing(?)
-                Toast.makeText(MainActivity.this, "Callback", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.toastUpdatedLocation, Toast.LENGTH_SHORT).show();
                 updateGPS();
             }
         };
@@ -87,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         btn_viewMap = findViewById(R.id.btn_map);
         btn_addNote = findViewById(R.id.btn_addNote);
 
-        //button listeners
 
+        //VIEW NOTES button listener
         btn_viewNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //VIEW MAP button listener
         btn_viewMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //ADD NOTE button listener
         btn_addNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,19 +132,17 @@ public class MainActivity extends AppCompatActivity {
                 if(sw_updates.isChecked()){
                     requestingLocationUpdates = true;
                     startLocationUpdates();
-                    //Toast.makeText(MainActivity.this, "SWITCH", Toast.LENGTH_SHORT).show();
                 }
-                //start updating in intervals
+                else{stopLocationUpdates();}
             }
         });
 
         updateGPS();
-
     }
 
     //FUNNY
     //https://developer.android.com/training/location/request-updates
-    //docs^
+
 
     @Override
     protected void onPause() {
@@ -160,22 +159,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void stopLocationUpdates() {
+        requestingLocationUpdates = false;
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
     //if you remove the checkSelf... and try to use requestLocationUpdates it might cause and Exception if no permission
     private void startLocationUpdates() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
 
         }
-        Toast.makeText(MainActivity.this, "START LOC UPD", Toast.LENGTH_SHORT).show();
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper()); //Looper can't be null :D
         updateGPS();
     }
