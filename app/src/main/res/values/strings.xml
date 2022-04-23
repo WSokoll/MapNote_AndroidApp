@@ -28,6 +28,7 @@
     <string name="toastErrorWhileDeleting">Wystąpił błąd podczas usuwania notatki</string>
     <string name="toastChangedContentSaved">Treść została pomyślnie zmieniona</string>
     <string name="toastErrorWhileSavingChangedContent">Proces zapisywania edycji nie powiódł się</string>
+    <string name="toastNoChangesHaveBeenMade">Nie dokonano żadnych zmian</string>
 
     <!--  activity_main.xml GUI Strings  -->
     <string name="mainActivityTitle">Map Note</string>
