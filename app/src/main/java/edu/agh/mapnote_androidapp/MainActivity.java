@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         Toast.makeText(MainActivity.this, "START LOC UPD", Toast.LENGTH_SHORT).show();
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null); //Looper can't be null :D
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper()); //Looper can't be null :D
         updateGPS();
     }
 
