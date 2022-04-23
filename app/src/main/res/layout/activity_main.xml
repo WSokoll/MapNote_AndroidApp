@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="44dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/latitude_label"
         app:layout_constraintTop_toBottomOf="@+id/title_mapNote" />
 
@@ -54,7 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/longitude_label"
         app:layout_constraintTop_toBottomOf="@+id/tv_latitude" />
 
@@ -70,11 +68,14 @@
 
     <TextView
         android:id="@+id/tv_address"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:layout_marginEnd="12dp"
+        android:maxLines="2"
+        android:breakStrategy="simple"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/address_label"
         app:layout_constraintTop_toBottomOf="@+id/tv_longitude" />
 
@@ -83,13 +84,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
         android:text="@string/mainActivitySeeNotesButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_accuracy" />
+        app:layout_constraintTop_toBottomOf="@+id/sw_updates" />
 
     <Switch
         android:id="@+id/sw_updates"
@@ -100,16 +101,6 @@
         android:text="@string/mainActivityRefreshSwitch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address_label" />
-
-    <Switch
-        android:id="@+id/sw_accuracy"
-        android:layout_width="191dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/mainActivityHighAccuracySwitch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_updates" />
 
     <Button
         android:id="@+id/btn_map"

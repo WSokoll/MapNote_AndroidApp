@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address;
-    Switch sw_updates, sw_accuracy;
+    Switch sw_updates;
     Button btn_viewNotes, btn_viewMap, btn_addNote;
 
     //Google's API client
-    private FusedLocationProviderClient fusedLocationClient;
+    FusedLocationProviderClient fusedLocationClient;
 
     //location request
     LocationRequest locationRequest;
@@ -62,13 +62,12 @@ public class MainActivity extends AppCompatActivity {
         tv_longitude = findViewById(R.id.tv_longitude);
         tv_address = findViewById(R.id.tv_address);
         sw_updates = findViewById(R.id.sw_updates);
-        sw_accuracy = findViewById(R.id.sw_accuracy);
 
 
         locationRequest = LocationRequest.create()
                 .setInterval(15000)
                 .setFastestInterval(5000)
-                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY); //balanced power
 
         // locationRequest = new LocationRequest(); DEPRECATED
 
@@ -78,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 updateValues(locationResult.getLastLocation()); //updates the values without updateGPS doing same thing(?)
+                Toast.makeText(MainActivity.this, "Callback", Toast.LENGTH_SHORT).show();
+                updateGPS();
             }
         };
 
@@ -128,24 +129,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(sw_updates.isChecked()){
-                //    startLocationUpdates();
-                //    requestingLocationUpdates = true;
+                    requestingLocationUpdates = true;
+                    startLocationUpdates();
+                    //Toast.makeText(MainActivity.this, "SWITCH", Toast.LENGTH_SHORT).show();
                 }
                 //start updating in intervals
             }
         });
-
-        //listener of Accuracy switch
-        sw_accuracy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(sw_accuracy.isChecked()){
-                //    stopLocationUpdates();
-                }
-                //get more accurate location <-> stay with less accurate
-            }
-        });
-
 
         updateGPS();
 
@@ -177,14 +167,16 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
+
         }
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper()); //Looper can't be null :D
+        Toast.makeText(MainActivity.this, "START LOC UPD", Toast.LENGTH_SHORT).show();
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null); //Looper can't be null :D
         updateGPS();
     }
 

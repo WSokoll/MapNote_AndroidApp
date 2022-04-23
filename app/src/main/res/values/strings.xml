@@ -34,7 +34,7 @@
     <string name="mainActivityLatitudeLabel">Szerokość:</string>
     <string name="mainActivityLongitudeLabel">Długość:</string>
     <string name="mainActivityAddressLabel">Aktualny adres:</string>
-    <string name="mainActivityRefreshSwitch">Odświeżanie lokalizacj</string>
+    <string name="mainActivityRefreshSwitch">Odświeżanie lokalizacji</string>
     <string name="mainActivityHighAccuracySwitch">Wysoka dokładność</string>
     <string name="mainActivitySeeNotesButton">PRZEGLĄDAJ NOTATKI</string>
     <string name="mainActivityMapViewButton">WIDOK MAPY</string>
