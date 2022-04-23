@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_FINE_LOCCATION = 10;
     private Location currentLocation;
     private String currentAddress = String.valueOf(R.string.mainActivityFailToRetrieveAddress);
-    boolean requestingLocationUpdates;
 
     //elements from GUI
     TextView tv_latitude, tv_longitude, tv_address;
@@ -130,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(sw_updates.isChecked()){
-                    requestingLocationUpdates = true;
                     startLocationUpdates();
                 }
                 else{stopLocationUpdates();}
@@ -140,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         updateGPS();
     }
 
-    //FUNNY
     //https://developer.android.com/training/location/request-updates
 
 
@@ -153,13 +150,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (requestingLocationUpdates) {
+        if (sw_updates.isChecked()) {
             startLocationUpdates();
         }
     }
 
     private void stopLocationUpdates() {
-        requestingLocationUpdates = false;
         fusedLocationClient.removeLocationUpdates(locationCallback);
     }
     //if you remove the checkSelf... and try to use requestLocationUpdates it might cause and Exception if no permission
@@ -173,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
         updateGPS();
     }
 
-    //END OF FUNNY
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
