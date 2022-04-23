@@ -61,7 +61,9 @@ public class MainActivity extends AppCompatActivity {
         tv_longitude = findViewById(R.id.tv_longitude);
         tv_address = findViewById(R.id.tv_address);
         sw_updates = findViewById(R.id.sw_updates);
-
+        btn_viewNotes = findViewById(R.id.btn_notes);
+        btn_viewMap = findViewById(R.id.btn_map);
+        btn_addNote = findViewById(R.id.btn_addNote);
 
         locationRequest = LocationRequest.create()
                 .setInterval(15000)
@@ -79,12 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 updateGPS();
             }
         };
-
-
-        btn_viewNotes = findViewById(R.id.btn_notes);
-        btn_viewMap = findViewById(R.id.btn_map);
-        btn_addNote = findViewById(R.id.btn_addNote);
-
 
         //VIEW NOTES button listener
         btn_viewNotes.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //listener of Updates switch
-
         sw_updates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,18 +150,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void stopLocationUpdates() {
-        fusedLocationClient.removeLocationUpdates(locationCallback);
-    }
     //if you remove the checkSelf... and try to use requestLocationUpdates it might cause and Exception if no permission
     private void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-
         }
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper()); //Looper can't be null :D
         updateGPS();
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
 
@@ -184,8 +181,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //check ACCESS_FINE_LOCATION permission and update gps coordinates -> update location variable
     public void updateGPS(){
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
 
         //get permission if it's not already granted
@@ -223,12 +220,10 @@ public class MainActivity extends AppCompatActivity {
         tv_longitude.setText(String.valueOf(lon));
 
         try {
+            //update currentAddress
             List<Address> address = geocoder.getFromLocation(lat, lon, 1);
             this.currentAddress = address.get(0).getAddressLine(0);
             tv_address.setText(address.get(0).getAddressLine(0));
-
-            //update currentAddress
-
 
         } catch (Exception e) {
             tv_address.setText(R.string.mainActivityFailToRetrieveAddress);
