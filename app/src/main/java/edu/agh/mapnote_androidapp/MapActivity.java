@@ -83,14 +83,6 @@ public class MapActivity extends AppCompatActivity{
             map.getOverlays().add(marker);
 
         }
-        //GeoPoint startPoint = new GeoPoint(50.06738875352999, 19.916020749346657);
-        //GeoPoint labelPoint = new LabelledGeoPoint(50.06738875352999,19.916020749346657, "Teleinfa");
-        //mapController.setCenter(startPoint);
-        //Marker startMarker = new Marker(map);
-        //startMarker.setPosition(labelPoint);
-        //startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        //startMarker.setTextIcon("B9");
-        //map.getOverlays().add(startMarker);
 
         requestPermissionsIfNecessary(new String[] {
                 // WRITE_EXTERNAL_STORAGE is required in order to show the map
