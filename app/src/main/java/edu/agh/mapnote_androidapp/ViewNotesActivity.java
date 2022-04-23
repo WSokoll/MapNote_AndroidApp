@@ -66,4 +66,12 @@ public class ViewNotesActivity extends AppCompatActivity {
 
         return Integer.parseInt(id);
     }
+
+    //override back button so that we always go back to the main window after pressing back
+    @Override
+    public void onBackPressed () {
+        //open main activity
+        Intent intent = new Intent(ViewNotesActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 }
