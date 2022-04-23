@@ -50,8 +50,6 @@ public class EditDeleteNoteActivity extends AppCompatActivity {
                 if(dbHelper.deleteNoteById(noteId)) {
                     Toast.makeText(EditDeleteNoteActivity.this, R.string.toastNoteDeleted, Toast.LENGTH_SHORT).show();
 
-                    //Tu może coś wymyślić, żeby inaczej wrócić do tego widoku bo teraz wraca, ale jak sie kliknie
-                    //strzałke w tył to wraca do okna usuwania i edytowania już usuniętej notatki
                     //open view notes activity
                     Intent intent = new Intent(EditDeleteNoteActivity.this, ViewNotesActivity.class);
                     startActivity(intent);
@@ -68,7 +66,12 @@ public class EditDeleteNoteActivity extends AppCompatActivity {
                 //check if content isn't blank
                 if(tn_EditDeleteNoteContent.getText().length() == 0) {
                     Toast.makeText(EditDeleteNoteActivity.this, R.string.toastEnterNoteContent, Toast.LENGTH_SHORT).show();
-                }else{
+                }
+                //check if any changes have been made
+                else if(String.valueOf(tn_EditDeleteNoteContent.getText()).equals(note.getNoteContent())){
+                    Toast.makeText(EditDeleteNoteActivity.this, R.string.toastNoChangesHaveBeenMade, Toast.LENGTH_SHORT).show();
+
+                } else{
                     note.setNoteContent(String.valueOf(tn_EditDeleteNoteContent.getText()));
 
                     //try to update
