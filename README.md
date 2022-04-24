@@ -13,4 +13,4 @@ Map Note is an Android application created during studies as one of the projects
 ## Requirements
 + Android 9.0 or higher
 ## Credit
-https://www.flaticon.com/free-icons/maps-and-location
+Icon - https://www.flaticon.com/free-icons/maps-and-location
