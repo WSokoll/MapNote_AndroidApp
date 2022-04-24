@@ -5,6 +5,7 @@ Map Note is an Android application created during studies as one of the projects
 + Displaying notes as pins on the map along with the current location of the device shown 
 + Displaying a list of notes
 + Editing/Deleting notes
++ Polish and English version of the application
 ## Technologies
 + Java 
 + SQLite
