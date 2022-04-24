@@ -1,4 +1,4 @@
-# Map Note - Android App  
+# ![MapNote_icon_32x32](https://user-images.githubusercontent.com/72974897/164985991-9cbc9882-b92e-440e-89d9-5a67caf62bec.png) Map Note - Android App  
 Map Note is an Android application created during studies as one of the projects. 
 ## Features
 + Saving location related notes
