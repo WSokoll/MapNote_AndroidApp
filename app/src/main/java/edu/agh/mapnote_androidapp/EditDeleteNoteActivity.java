@@ -50,9 +50,8 @@ public class EditDeleteNoteActivity extends AppCompatActivity {
                 if(dbHelper.deleteNoteById(noteId)) {
                     Toast.makeText(EditDeleteNoteActivity.this, R.string.toastNoteDeleted, Toast.LENGTH_SHORT).show();
 
-                    //open view notes activity
-                    Intent intent = new Intent(EditDeleteNoteActivity.this, ViewNotesActivity.class);
-                    startActivity(intent);
+                    //finish activity
+                    finish();
                 }else{
                     Toast.makeText(EditDeleteNoteActivity.this, R.string.toastErrorWhileDeleting, Toast.LENGTH_SHORT).show();
                 }
@@ -77,8 +76,7 @@ public class EditDeleteNoteActivity extends AppCompatActivity {
                     //try to update
                     if(dbHelper.editNote(note)){
                         Toast.makeText(EditDeleteNoteActivity.this, R.string.toastChangedContentSaved, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(EditDeleteNoteActivity.this, ViewNotesActivity.class);
-                        startActivity(intent);
+                        finish();
                     }else{
                         Toast.makeText(EditDeleteNoteActivity.this, R.string.toastErrorWhileSavingChangedContent, Toast.LENGTH_SHORT).show();
                     }
