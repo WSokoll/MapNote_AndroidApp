@@ -35,4 +35,5 @@
     <string name="toastPermissionNeeded">"App need permission to function properly "</string>
     <string name="toastUpdatedLocation">Location updated.</string>
     <string name="toastNoChangesHaveBeenMade">No changes have been made</string>
+    <string name="viewNotesActivityRefreshButton">REFRESH</string>
 </resources>

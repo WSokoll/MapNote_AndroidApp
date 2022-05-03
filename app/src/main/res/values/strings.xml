@@ -46,4 +46,7 @@
     <string name="toastPermissionNeeded">Aplikacja potrzebuje uprawnień do poprawnego działania.</string>
     <string name="toastUpdatedLocation">Zaktualizowano lokalizację.</string>
 
+    <!--  activity_view_notes.xml GUI Strings  -->
+    <string name="viewNotesActivityRefreshButton">ODŚWIEŻ</string>
+
 </resources>
