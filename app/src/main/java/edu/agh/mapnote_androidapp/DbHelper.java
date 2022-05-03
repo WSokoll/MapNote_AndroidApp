@@ -52,7 +52,14 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //add note to database
+    /**
+     * Adds note to the database.
+     * Returns false if the insert was successful.
+     * Returns true if the insert was unsuccessful.
+     *
+     * @param note Note object to be added to the database
+     * @return boolean value that indicates whether the insert operation was successful
+     */
     public boolean addNote(Note note){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -73,7 +80,10 @@ public class DbHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    //get list of all notes
+    /**
+     * Returns a List of all Notes stored in the database.
+     * @return List of Note objects
+     */
     public List<Note> getAllNotes(){
         List<Note> resultList = new ArrayList<>();
 
@@ -106,7 +116,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return resultList;
     }
 
-    //get note with specified id
+    /**
+     * Returns a Note with specified id.
+     *
+     * @param id id of the wanted note
+     * @return Note with specified id
+     */
     public Note getNoteById(int id) {
         Note note = new Note();
 
@@ -129,7 +144,14 @@ public class DbHelper extends SQLiteOpenHelper {
         return note;
     }
 
-    //delete note with specified id
+    /**
+     * Deletes a Note with specified id from the database.
+     * Returns false if the delete was successful.
+     * Returns true if the delete was unsuccessful.
+     *
+     * @param id id of the note to be deleted
+     * @return boolean value that indicates whether the delete operation was successful
+     */
     public boolean deleteNoteById(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -143,7 +165,14 @@ public class DbHelper extends SQLiteOpenHelper {
         return delete != -1;
     }
 
-    //edit specific note's content
+    /**
+     * Edits specific note's content in the database.
+     * Returns false if the update was successful.
+     * Returns true if the update was unsuccessful.
+     *
+     * @param editedNote Note object with content field updated
+     * @return boolean value that indicates whether the update operation was successful
+     */
     public boolean editNote(Note editedNote){
         SQLiteDatabase db = this.getWritableDatabase();
 
