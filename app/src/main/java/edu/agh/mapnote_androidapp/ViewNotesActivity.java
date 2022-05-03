@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class ViewNotesActivity extends AppCompatActivity {
 
     ListView lv_Notes;
+    Button btn_viewNotesRefresh;
 
     private DbHelper dbHelper;
 
@@ -21,6 +23,7 @@ public class ViewNotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_notes);
+        btn_viewNotesRefresh = findViewById(R.id.btn_viewNotesRefresh);
 
         dbHelper = new DbHelper(this);
 
@@ -37,6 +40,14 @@ public class ViewNotesActivity extends AppCompatActivity {
                 intent.putExtra("NOTE_ID", getNoteId(values[position]));
 
                 startActivity(intent);
+            }
+        });
+
+        //refresh button listener
+        btn_viewNotesRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fillNoteListView();
             }
         });
     }
@@ -74,13 +85,5 @@ public class ViewNotesActivity extends AppCompatActivity {
         }
 
         return Integer.parseInt(id);
-    }
-
-    //override back button so that we always go back to the main window after pressing back
-    @Override
-    public void onBackPressed () {
-        //open main activity
-        Intent intent = new Intent(ViewNotesActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 }
