@@ -24,21 +24,8 @@ public class ViewNotesActivity extends AppCompatActivity {
 
         dbHelper = new DbHelper(this);
 
-        //get list of notes from the database
-        List<Note> noteList = dbHelper.getAllNotes();
-
-        //create String table with notes
-        String[] values = new String[noteList.size()];
-        int i = 0;
-        for(Note note : noteList){
-            values[i] = note.toString();
-            i += 1;
-        }
-
-        lv_Notes = findViewById(R.id.lv_Notes);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                values);
-        lv_Notes.setAdapter(adapter);
+        //fill list of notes and get string table with notes
+        String[] values = fillNoteListView();
 
         //open edit/delete activity after clicking on specific note
         lv_Notes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,6 +39,28 @@ public class ViewNotesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    //fill or update list of notes, return string table with notes
+    private String[] fillNoteListView(){
+        //get list of notes from the database
+        List<Note> noteList = dbHelper.getAllNotes();
+
+        //create String table with notes
+        String[] values = new String[noteList.size()];
+        int i = 0;
+        for(Note note : noteList){
+            values[i] = note.toString();
+            i += 1;
+        }
+
+        //fill listView with values from values array
+        lv_Notes = findViewById(R.id.lv_Notes);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                values);
+        lv_Notes.setAdapter(adapter);
+
+        return values;
     }
 
     //separate and convert note id from note's toString
