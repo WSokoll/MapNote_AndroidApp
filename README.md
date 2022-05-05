@@ -18,5 +18,5 @@ If you want to test this app yourself, you can download it from the app_apk fold
 + Władysław Sokołowski
 + Jakub Wojnarowicz
 ## Credit
-Icon - https://www.flaticon.com/free-icons/maps-and-location
-OpenStreetMap - https://www.openstreetmap.org
++ Icon - https://www.flaticon.com/free-icons/maps-and-location
++ OpenStreetMap - https://www.openstreetmap.org
