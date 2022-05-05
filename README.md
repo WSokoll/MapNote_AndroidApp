@@ -9,7 +9,7 @@ Map Note is an Android application created during studies as one of the projects
 ## Technologies
 + Java 
 + SQLite
-+ osmoroid-android 6.1.10 API
++ osmdroid-android 6.1.10 API
 ## Setup
 If you want to test this app yourself, you can download it from the app_apk folder as a .apk file. Then you can install it on your device. Please check the Requirements tab below before installing to make sure the app will run correctly.
 ## Requirements
@@ -19,3 +19,4 @@ If you want to test this app yourself, you can download it from the app_apk fold
 + Jakub Wojnarowicz
 ## Credit
 Icon - https://www.flaticon.com/free-icons/maps-and-location
+OpenStreetMap - https://www.openstreetmap.org
